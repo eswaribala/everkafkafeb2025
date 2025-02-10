@@ -1,4 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using PatientAPI.Contexts;
+
 var builder = WebApplication.CreateBuilder(args);
+
+ConfigurationManager configuration = builder.Configuration;
+
+//add DI
+
+builder.Services.AddDbContext<PatientContext>(o =>
+o.UseSqlServer(configuration.GetConnectionString("Patient_Conn_String")));
+
+
 
 // Add services to the container.
 
