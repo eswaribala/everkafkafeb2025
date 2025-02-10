@@ -11,7 +11,9 @@ services:
       - ASPNETCORE_URLS=http://+:80 
     ports:
      -   1508:80
-  sqlserverpolicyservice:  
+    depends_on:
+      - sqlserverpatientservice
+  sqlserverpatientservice:  
     image: mcr.microsoft.com/mssql/server 
     hostname: 'sqlserverpatientservice'  
     environment:  
