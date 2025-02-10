@@ -34,3 +34,4 @@ F:\Local disk\EverNorthWS\PatientAPI\bin\Debug\PatientAPI.pdb
 F:\Local disk\EverNorthWS\PatientAPI\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 F:\Local disk\EverNorthWS\PatientAPI\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 F:\Local disk\EverNorthWS\PatientAPI\obj\Debug\docker-compose.dcproj.CopyComplete
+F:\Local disk\EverNorthWS\PatientAPI\bin\Debug\Confluent.Kafka.dll
