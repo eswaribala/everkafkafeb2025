@@ -16,6 +16,7 @@ ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddDbContext<PatientContext>(o =>
 o.UseSqlServer(configuration.GetConnectionString("Patient_Conn_String")));
 builder.Services.AddTransient<IPatientRepo, PatientRepo>();
+builder.Services.AddTransient<IPatientPublishRepo, PatientPublishRepo>();
 
 
 
