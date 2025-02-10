@@ -5,14 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PatientAPI.Models
 {
     public enum Gender { MALE,FEMALE,TRANSGENDER}
+    [Table("Patient")]
     public class Patient
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Patient_Id")]
         public long PatientId { get; set; }
-
-
+        [Column("SSN", TypeName ="varchar(12")]
+        [RegularExpression("^[a-zA-Z0-9]{12}$", ErrorMessage = "SSN should be in 12 chars")]
+        public string SSN {  get; set; }
         public FullName FullName { get; set; }
         [Column("Gender")]
         [EnumDataType(typeof(Gender))]
