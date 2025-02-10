@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  patientapi:
+    image: ${DOCKER_REGISTRY-}patientapi
+    build:
+      context: .
+      dockerfile: PatientAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80 
+    ports:
+     -   1508:80
+  sqlserverpolicyservice:  
+    image: mcr.microsoft.com/mssql/server 
+    hostname: 'sqlserverpatientservice'  
+    environment:  
+      ACCEPT_EULA: 'Y' 
+      SA_PASSWORD: "Vignesh@95"  
+    volumes:  
+      - ./policyapi:/var/opt/mssql/data  
+    ports:  
+      - '1403:1433'  
+    expose:  
+      - 1433  
+networks: 
+  default: 
+    external: 
+      name: evernorthnetwork    
+   
+
