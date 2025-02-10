@@ -1,39 +1,45 @@
 ﻿
+using Confluent.Kafka;
+using ConfluentPatientInfoConsumer.DTOs;
+using Newtonsoft.Json;
+
 namespace ConfluentPatientInfoConsumer.Services
 {
     public class PatientInfoConsumer : BackgroundService
     {
-        private IPolicyRepo _policyRepo;
+        
         private IConfiguration _configuration;
         private string response;
-        public PolicyConsumerService(IPolicyRepo policyRepo,
-            IConfiguration configuration)
+        public PatientInfoConsumer(IConfiguration configuration)
         {
             _configuration = configuration;
-            _policyRepo = policyRepo;
+           
 
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var groupId = _configuration["GroupId"];
             var bootStrapServer = _configuration["BootstrapServer"];
-            var topicName = _configuration["TopicName"];
-            return ConsumePolicyData(topicName, groupId, bootStrapServer);
+           
+            return ConsumePolicyData(groupId, bootStrapServer);
         }
 
-        public async Task<string> ConsumePolicyData(string TopicName,
-            string Group_Id, string BootstarpServer)
+        public async Task<string> ConsumePolicyData(string Group_Id, string BootstarpServer)
         {
 
             var consumerConfig = new ConsumerConfig
             {
                 BootstrapServers = BootstarpServer,
+                SecurityProtocol = SecurityProtocol.SaslSsl,
+                SaslMechanism = SaslMechanism.Plain,
+                SaslUsername = _configuration["UserName"],
+                SaslPassword = _configuration["Password"],
                 GroupId = Group_Id,
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
             using (var c = new ConsumerBuilder<Ignore, string>(consumerConfig).Build())
             {
-                c.Subscribe(TopicName);
+                c.Subscribe(_configuration["TopicName"]);
 
                 CancellationTokenSource cts = new CancellationTokenSource();
                 Console.CancelKeyPress += (_, e) =>
@@ -51,11 +57,10 @@ namespace ConfluentPatientInfoConsumer.Services
                             var cr = c.Consume(cts.Token);
                             Console.WriteLine($"Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.");
                             response = $"Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.";
-                            var result = JsonConvert.DeserializeObject<List<Policy>>(cr.Value);
-                            foreach (var policy in result)
+                            var result = JsonConvert.DeserializeObject<List<Patient>>(cr.Value);
+                            foreach (var patient in result)
                             {
-                                policy.PolicyNo = policy.PolicyNo + new Random().Next(10000);
-                                _policyRepo.AddPolicy(policy);
+                                Console.WriteLine(patient.FullName.FirstName);
                             }
                         }
                         catch (ConsumeException e)
