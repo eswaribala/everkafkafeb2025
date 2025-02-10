@@ -1,4 +1,5 @@
-﻿using PatientAPI.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using PatientAPI.Contexts;
 using PatientAPI.Models;
 
 namespace PatientAPI.Repositories
@@ -21,20 +22,35 @@ namespace PatientAPI.Repositories
 
             
         }
-
-        public Task<bool> DeletePatient(long patientId)
+        private async Task<Patient> IsPatientExists(long patientId)
         {
-            throw new NotImplementedException();
+
+            return await this._dbContext.Patients.FirstOrDefaultAsync(p=>p.PatientId == patientId); 
+
+        }
+        public async Task<bool> DeletePatient(long patientId)
+        {
+            bool Status = false;
+            var result = await IsPatientExists(patientId);
+            if (result != null)
+            {
+                this._dbContext.Patients.Remove(result);
+                await this._dbContext.SaveChangesAsync();
+                Status = true;
+            }
+
+            return Status;
         }
 
-        public Task<IEnumerable<Patient>> GetAllPatients()
+        public async Task<IEnumerable<Patient>> GetAllPatients()
         {
-            throw new NotImplementedException();
+            return await this._dbContext.Patients.ToListAsync();
+               
         }
 
-        public Task<Patient> GetPatient(long patientId)
+        public async Task<Patient> GetPatient(long patientId)
         {
-            throw new NotImplementedException();
+            return await IsPatientExists(patientId);
         }
     }
 }

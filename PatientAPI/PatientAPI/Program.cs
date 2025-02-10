@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PatientAPI.Contexts;
+using PatientAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddDbContext<PatientContext>(o =>
 o.UseSqlServer(configuration.GetConnectionString("Patient_Conn_String")));
+builder.Services.AddTransient<IPatientRepo, PatientRepo>();
 
 
 
