@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConfluentPatientInfoConsumer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17046f0a34e0f945ce7f34936d96e2ddeb4be3b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConfluentPatientInfoConsumer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConfluentPatientInfoConsumer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

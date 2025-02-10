@@ -18,23 +18,21 @@ namespace ConfluentPatientInfoConsumer.Services
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var groupId = _configuration["GroupId"];
-            var bootStrapServer = _configuration["BootstrapServer"];
            
-            return ConsumePolicyData(groupId, bootStrapServer);
+            return ConsumePatientData();
         }
 
-        public async Task<string> ConsumePolicyData(string Group_Id, string BootstarpServer)
+        public async Task<string> ConsumePatientData()
         {
 
             var consumerConfig = new ConsumerConfig
             {
-                BootstrapServers = BootstarpServer,
+                BootstrapServers = _configuration["BootStrapServer"],
                 SecurityProtocol = SecurityProtocol.SaslSsl,
                 SaslMechanism = SaslMechanism.Plain,
                 SaslUsername = _configuration["UserName"],
                 SaslPassword = _configuration["Password"],
-                GroupId = Group_Id,
+                GroupId = _configuration["Group_Id"],
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
             using (var c = new ConsumerBuilder<Ignore, string>(consumerConfig).Build())
@@ -57,11 +55,11 @@ namespace ConfluentPatientInfoConsumer.Services
                             var cr = c.Consume(cts.Token);
                             Console.WriteLine($"Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.");
                             response = $"Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.";
-                            var result = JsonConvert.DeserializeObject<List<Patient>>(cr.Value);
-                            foreach (var patient in result)
-                            {
-                                Console.WriteLine(patient.FullName.FirstName);
-                            }
+                            //var result = JsonConvert.DeserializeObject<List<Patient>>(cr.Value);
+                            //foreach (var patient in result)
+                            //{
+                            //    Console.WriteLine(patient.FullName.FirstName);
+                            //}
                         }
                         catch (ConsumeException e)
                         {
