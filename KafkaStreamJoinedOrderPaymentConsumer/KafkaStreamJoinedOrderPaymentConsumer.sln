@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaStreamJoinedOrderPaymentConsumer", "KafkaStreamJoinedOrderPaymentConsumer\KafkaStreamJoinedOrderPaymentConsumer.csproj", "{19E33E42-2905-42F7-9186-28B35E92CFAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19E33E42-2905-42F7-9186-28B35E92CFAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19E33E42-2905-42F7-9186-28B35E92CFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19E33E42-2905-42F7-9186-28B35E92CFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19E33E42-2905-42F7-9186-28B35E92CFAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {858BB3E7-4D1E-47DB-B79B-2BCDA8AED34E}
+	EndGlobalSection
+EndGlobal
